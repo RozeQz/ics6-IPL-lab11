@@ -83,17 +83,17 @@ class PalindromesController < ApplicationController
 
     numbers = (0..Integer(input)).select { |i| palindrome?(i * i) }
     result = numbers.size
-    
-    palindromes_hash = numbers.each_with_index.map do |number, index| 
+
+    palindromes_hash = numbers.each_with_index.map do |number, index|
       { "palindrome#{index + 1}": { number: number, square: number**2 } }
     end
 
     output_hash = { result: result, palindromes: palindromes_hash }
     output_hash.to_xml.gsub('hash', 'output').gsub(/<palindrome(\d+)>/, '<palindrome i="\1">')
-                       .gsub(/<palindrome>/, '')
-                       .gsub(%r{</palindrome(\d+)>}, '')
-                       .gsub(%r{</number(\d+)>}, '</number>')
-                       .gsub(%r{</square(\d+)>}, '</square>')
+               .gsub(/<palindrome>/, '')
+               .gsub(%r{</palindrome(\d+)>}, '')
+               .gsub(%r{</number(\d+)>}, '</number>')
+               .gsub(%r{</square(\d+)>}, '</square>')
   end
 
   def palindrome?(number)

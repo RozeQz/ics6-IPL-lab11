@@ -6,5 +6,6 @@ class CreatePalindromes < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+    add_index :palindromes, :input, unique: true
   end
 end

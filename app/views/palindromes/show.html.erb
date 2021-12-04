@@ -1,14 +1,15 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Результаты вычислений</h1>
+
 <p>
-  <strong>Input:</strong>
+  <strong>Введено: </strong>
   <%= @palindrome.input %>
 </p>
 
 <p>
-  <strong>Output:</strong>
+  <strong>Результат:</strong>
   <%= @palindrome.output %>
 </p>
 
-<%= link_to 'Edit', edit_palindrome_path(@palindrome) %> |
 <%= link_to 'Back', palindromes_path %>

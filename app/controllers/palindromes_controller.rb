@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require 'nokogiri'
+
 class PalindromesController < ApplicationController
   before_action :set_palindrome, only: %i[show edit update destroy]
+  XSLT_SERVER_TRANSFORM = "#{Rails.root}/public/server_transform.xslt".freeze
 
   def input; end
 
@@ -11,7 +14,11 @@ class PalindromesController < ApplicationController
   end
 
   # GET /palindromes/1 or /palindromes/1.json
-  def show; end
+  def show
+    doc = Nokogiri::XML(@palindrome.output)
+    xslt = Nokogiri::XSLT(File.read(XSLT_SERVER_TRANSFORM))
+    @view = xslt.transform(doc)
+  end
 
   # GET /palindromes/new
   def new
@@ -76,22 +83,17 @@ class PalindromesController < ApplicationController
 
     numbers = (0..Integer(input)).select { |i| palindrome?(i * i) }
     result = numbers.size
-
-    # number_hash = numbers.each_with_object({}).with_index(1) { |m, ind| m[1]["palindrome#{ind}"] = m[0] }
-    # square_hash = numbers.each_with_object({}).with_index(1) { |m, ind| m[1]["palindrome#{ind}"] = m[0]*m[0] }
-
-    # number_hash = numbers.each_with_object({}).with_index(1) do |m, index|
-    #   m[1]["number#{index}"] = m[0] 
-    #   m[1]["square#{index}"] = m[0]**2
-    # end
-
-    number_hash = numbers.each_with_object({}).with_index(1) do |number, index| 
-      number[1]["number#{index}"] = number[0]
-      number[1]["square#{index}"] = number[0]
+    
+    palindromes_hash = numbers.each_with_index.map do |number, index| 
+      { "palindrome#{index + 1}": { number: number, square: number**2 } }
     end
 
-    output_hash = { result: result, palindromes: number_hash }
-    output_hash.to_xml.gsub('hash', 'output').gsub(%r{</number(\d)>}, '</number>').gsub(%r{</square(\d)>}, '</square>')
+    output_hash = { result: result, palindromes: palindromes_hash }
+    output_hash.to_xml.gsub('hash', 'output').gsub(/<palindrome(\d+)>/, '<palindrome i="\1">')
+                       .gsub(/<palindrome>/, '')
+                       .gsub(%r{</palindrome(\d+)>}, '')
+                       .gsub(%r{</number(\d+)>}, '</number>')
+                       .gsub(%r{</square(\d+)>}, '</square>')
   end
 
   def palindrome?(number)

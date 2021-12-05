@@ -5,8 +5,8 @@
 <table>
   <thead>
     <tr>
-      <th>Input</th>
-      <th>Output</th>
+      <th>Введено</th>
+      <th>Результат</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,8 +16,8 @@
       <tr>
         <td><%= palindrome.input %></td>
         <td><%= palindrome.output %></td>
-        <td><%= link_to 'Show', palindrome %></td>
-        <td><%= link_to 'Destroy', palindrome, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+        <td><%= link_to 'Посмотреть', palindrome %></td>
+        <td><%= link_to 'Удалить', palindrome, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +25,4 @@
 
 <br>
 
-<%= link_to 'Вернуться', new_palindrome_path %>
+<%= link_to 'Ввести новое число', new_palindrome_path %>

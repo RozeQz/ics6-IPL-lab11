@@ -5,7 +5,7 @@ class MyValidator < ActiveModel::Validator
   def validate(record)
     if record.input.nil?
       record.errors.add :input, 'Пустой ввод'
-      return
+      nil
     end
   end
 end

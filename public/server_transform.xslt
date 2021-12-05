@@ -4,7 +4,8 @@
 
 <xsl:template match="/">
 
-<p>Ответ: <xsl:value-of select="output/result"/></p>
+<p><strong>Ответ: </strong>
+    <xsl:value-of select="output/result"/></p>
 <table class="table table-striped">
     <tr>
         <th scope="col">#</th>

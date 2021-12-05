@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 
-# validator class model
+# Validator model
 class MyValidator < ActiveModel::Validator
   def validate(record)
-    if record.input.nil?
-      record.errors.add :input, 'Пустой ввод'
-      nil
+    if record.input.empty?
+      record.errors.add :input, 'Пустой ввод'  
+      return
     end
+    record.errors.add :input, 'Используйте только цифры' if record.input == %r{/\A(\D+)\z/}
   end
 end
 
-# palindrome class model
+# Palindrome model
 class Palindrome < ApplicationRecord
   validates :input, presence: true, uniqueness: true,
-                    format: { with: /\A\d+\z/, message: 'Допускается ввод только одного числа' }
+                    format: { with: /\A(\d+)\z/, message: 'Введите только одно число!' }
   validates_with MyValidator, fields: [:input]
 
   def self.search(search)

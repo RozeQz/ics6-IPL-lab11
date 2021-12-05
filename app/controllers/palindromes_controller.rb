@@ -85,8 +85,8 @@ class PalindromesController < ApplicationController
   end
 
   def make_output(input)
-    return if input.nil? || input.empty?
     input  = Integer(input)
+    return if input.nil?
 
     numbers = (0..input).select { |i| palindrome?(i * i) }
     result = numbers.size

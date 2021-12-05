@@ -11,13 +11,13 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label 'Число n: ' %>
-    <%= form.text_field :input %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Найти', class: 'btn btn-primary' %>
+  <div class="input-group d-flex">
+    <div class="field">
+      <%= form.text_field :input, type: 'text', placeholder: 'Введите n:', class: 'form-control' %>
+    </div>
+    <div class="action">
+      <%= form.submit 'Найти', type: 'submit', class: 'btn btn-primary btn' %>
+    </div>
   </div>
   
 <% end %>

@@ -3,14 +3,17 @@
 # validator class model
 class MyValidator < ActiveModel::Validator
   def validate(record)
-    record.errors.add :input, 'Пустой ввод' if record.input.nil?
+    if record.input.nil?
+      record.errors.add :input, 'Пустой ввод'
+      return
+    end
   end
 end
 
 # palindrome class model
 class Palindrome < ApplicationRecord
   validates :input, presence: true, uniqueness: true,
-                    format: { with: /\A\d+\z/, message: 'Please enter only one number' }
+                    format: { with: /\A\d+\z/, message: 'Допускается ввод только одного числа' }
   validates_with MyValidator, fields: [:input]
 
   def self.search(search)

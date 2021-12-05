@@ -20,7 +20,7 @@ class Palindrome < ApplicationRecord
     if search
       where(input: search)
     else
-      last(50)
+      all
     end
   end
 

@@ -10,7 +10,7 @@ class PalindromesController < ApplicationController
 
   # GET /palindromes or /palindromes.json
   def index
-    @palindromes = Palindrome.last(50)
+    @palindromes = Palindrome.all
 
     respond_to do |format|
       format.html do
@@ -85,8 +85,8 @@ class PalindromesController < ApplicationController
   end
 
   def make_output(input)
-    input  = Integer(input)
     return if input.nil? || input.empty?
+    input  = Integer(input)
 
     numbers = (0..input).select { |i| palindrome?(i * i) }
     result = numbers.size

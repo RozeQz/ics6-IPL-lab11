@@ -5,6 +5,8 @@ require 'test_helper'
 class PalindromesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @palindrome = palindromes(:one)
+    @controller = PalindromesController.new
+    @new_palindrome = Palindrome.new(input: 13)
   end
 
   test 'should get index' do
@@ -19,9 +21,8 @@ class PalindromesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create palindrome' do
     assert_difference('Palindrome.count') do
-      post palindromes_url, params: { palindrome: { input: @palindrome.input, output: @palindrome.output } }
+      post palindromes_url, params: { palindrome: { input: @new_palindrome.input, output: @new_palindrome.output } }
     end
-
     assert_redirected_to palindrome_url(Palindrome.last)
   end
 
@@ -30,21 +31,17 @@ class PalindromesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should get edit' do
-    get edit_palindrome_url(@palindrome)
-    assert_response :success
-  end
-
-  test 'should update palindrome' do
-    patch palindrome_url(@palindrome), params: { palindrome: { input: @palindrome.input, output: @palindrome.output } }
-    assert_redirected_to palindrome_url(@palindrome)
-  end
-
   test 'should destroy palindrome' do
     assert_difference('Palindrome.count', -1) do
       delete palindrome_url(@palindrome)
     end
 
     assert_redirected_to palindromes_url
+  end
+
+  test 'should get different outputs for different inputs' do
+    output1 = @controller.send :make_output, '10'
+    output2 = @controller.send :make_output, '11'
+    assert_not_equal output1, output2
   end
 end

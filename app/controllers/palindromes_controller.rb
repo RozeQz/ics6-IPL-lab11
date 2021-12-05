@@ -51,7 +51,7 @@ class PalindromesController < ApplicationController
     if found_id.nil?
       respond_to do |format|
         if @palindrome.save
-          format.html { redirect_to @palindrome, notice: 'Palindrome was successfully created.' }
+          format.html { redirect_to @palindrome, notice: 'Палиндром успешно создан.' }
           format.json { render :show, status: :created, location: @palindrome }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -63,24 +63,11 @@ class PalindromesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /palindromes/1 or /palindromes/1.json
-  def update
-    respond_to do |format|
-      if @palindrome.update(palindrome_params)
-        format.html { redirect_to @palindrome, notice: 'Palindrome was successfully updated.' }
-        format.json { render :show, status: :ok, location: @palindrome }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @palindrome.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /palindromes/1 or /palindromes/1.json
   def destroy
     @palindrome.destroy
     respond_to do |format|
-      format.html { redirect_to palindromes_url, notice: 'Palindrome was successfully destroyed.' }
+      format.html { redirect_to palindromes_url, notice: 'Палиндром успешно удален.' }
       format.json { head :no_content }
     end
   end

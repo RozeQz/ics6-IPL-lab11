@@ -4,20 +4,21 @@
 
 <xsl:template match="/">
 
-<TABLE class="table table-striped">
-    <TR>
-        <TH scope="col">#</TH>
-        <TH scope="col">Число</TH>
-        <TH scope="col">Квадрат числа</TH>
-    </TR>
+<p>Ответ: <xsl:value-of select="output/result"/></p>
+<table class="table table-striped">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Число</th>
+        <th scope="col">Квадрат числа</th>
+    </tr>
     <xsl:for-each select="output/palindromes/palindrome">
-    <TR>
-        <TD scope="row"><xsl:value-of select="@i"/></TD>
-        <TD scope="row"><xsl:value-of select="number"/></TD>
-        <TD scope="row"><xsl:value-of select="square"/></TD>
-    </TR>
+    <tr>
+        <td scope="row"><xsl:value-of select="@i"/></td>
+        <td scope="row"><xsl:value-of select="number"/></td>
+        <td scope="row"><xsl:value-of select="square"/></td>
+    </tr>
     </xsl:for-each>
-</TABLE><BR/>
+</table><br/>
 
 </xsl:template>
 </xsl:stylesheet>

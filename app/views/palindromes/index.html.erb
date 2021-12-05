@@ -16,8 +16,8 @@
       <tr>
         <td><%= palindrome.input %></td>
         <td><%= palindrome.output %></td>
-        <td><%= link_to 'Посмотреть', palindrome %></td>
-        <td><%= link_to 'Удалить', palindrome, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+        <td><%= link_to 'Посмотреть', palindrome, class: 'btn btn-link btn-sm' %></td>
+        <td><%= link_to 'Удалить', palindrome, method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-link btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +25,6 @@
 
 <br>
 
-<%= link_to 'Ввести новое число', new_palindrome_path %>
+<div>
+  <%= link_to 'Ввести новое число', new_palindrome_path, class: 'btn btn-link btn-sm' %>
+</div>

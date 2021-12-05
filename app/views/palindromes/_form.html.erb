@@ -12,11 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :input %>
+    <%= form.label 'Число n: ' %>
     <%= form.text_field :input %>
   </div>
 
   <div class="actions">
-    <%= form.submit 'Найти' %>
+    <%= form.submit 'Найти', class: 'btn btn-primary' %>
   </div>
+  
 <% end %>

@@ -11,13 +11,9 @@
     </div>
   <% end %>
 
-  <div class="input-group d-flex">
-    <div class="field">
-      <%= form.text_field :input, type: 'text', placeholder: 'Введите n:', class: 'form-control' %>
-    </div>
-    <div class="action">
-      <%= form.submit 'Найти', type: 'submit', class: 'btn btn-primary btn' %>
-    </div>
+  <div class="input-group d-flex w-25">
+    <%= form.text_field :input, type: 'text', placeholder: 'Введите n:', class: 'form-control', required: true %>
+    <%= form.submit 'Найти', type: 'submit', class: 'btn btn-primary' %>
   </div>
   
 <% end %>

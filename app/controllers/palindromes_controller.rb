@@ -45,10 +45,11 @@ class PalindromesController < ApplicationController
 
   # POST /palindromes or /palindromes.json
   def create
-    @palindrome = Palindrome.new(palindrome_params)
-    @palindrome.output = make_output(palindrome_params[:input]) if @palindrome.valid?
     found_id = Palindrome.search_id(palindrome_params[:input])
     if found_id.nil?
+      @palindrome = Palindrome.new(palindrome_params)
+      @palindrome.output = make_output(palindrome_params[:input]) if @palindrome.valid?
+      found_id = @palindrome.id
       respond_to do |format|
         if @palindrome.save
           format.html { redirect_to @palindrome, notice: 'Палиндром успешно создан.' }
@@ -91,16 +92,16 @@ class PalindromesController < ApplicationController
     numbers = (0..input).select { |i| palindrome?(i * i) }
     result = numbers.size
 
+    # palindromes_hash = numbers.map.with_index do |number, index|
+    #   { "palindrome#{index + 1}": { number: number, square: number**2 } }
+    # end
+
     palindromes_hash = numbers.map.with_index do |number, index|
-      { "palindrome#{index + 1}": { number: number, square: number**2 } }
+      { index: index, number: number, square: number**2 }
     end
 
     output_hash = { result: result || 'Не найдено', palindromes: palindromes_hash }
-    output_hash.to_xml.gsub('hash', 'output').gsub(/<palindrome(\d+)>/, '<palindrome i="\1">')
-               .gsub(/<palindrome>/, '')
-               .gsub(%r{</palindrome(\d+)>}, '')
-               .gsub(%r{</number(\d+)>}, '</number>')
-               .gsub(%r{</square(\d+)>}, '</square>')
+    output_hash.to_xml(root: 'output')
   end
 
   def palindrome?(number)

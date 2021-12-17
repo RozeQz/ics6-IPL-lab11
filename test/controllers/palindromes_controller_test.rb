@@ -19,13 +19,6 @@ class PalindromesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should create palindrome' do
-    assert_difference('Palindrome.count') do
-      post palindromes_url, params: { palindrome: { input: @new_palindrome.input, output: @new_palindrome.output } }
-    end
-    assert_redirected_to palindrome_url(Palindrome.last)
-  end
-
   test 'should show palindrome' do
     get palindrome_url(@palindrome)
     assert_response :success

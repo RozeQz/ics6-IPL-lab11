@@ -14,7 +14,7 @@
     </tr>
     <xsl:for-each select="output/palindromes/palindrome">
     <tr>
-        <td scope="row"><xsl:value-of select="@i"/></td>
+        <td scope="row"><xsl:value-of select="index"/></td>
         <td scope="row"><xsl:value-of select="number"/></td>
         <td scope="row"><xsl:value-of select="square"/></td>
     </tr>
